@@ -1,0 +1,2 @@
+# The Blender plugin uses Blender's bundled Python standard library.
+# No pip dependencies are required for installation.

@@ -1,0 +1,8 @@
+*.blend binary
+*.fbx binary
+*.glb binary
+*.gltf binary
+*.obj binary
+*.stl binary
+*.step binary
+*.stp binary

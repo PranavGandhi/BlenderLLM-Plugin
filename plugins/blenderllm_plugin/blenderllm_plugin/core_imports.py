@@ -1,0 +1,35 @@
+"""Import the bundled core package, with a source-tree fallback for development."""
+
+from __future__ import annotations
+
+try:
+    from .core.blenderllm_plugin_core import (  # type: ignore[import-not-found]
+        OpenAIResponsesClient,
+        SYSTEM_PROMPT,
+        build_repair_prompt,
+        build_user_prompt,
+        normalize_api_key,
+        validate_cad_pipeline,
+        validate_generated_code,
+    )
+except ModuleNotFoundError:
+    from blenderllm_plugin_core import (
+        OpenAIResponsesClient,
+        SYSTEM_PROMPT,
+        build_repair_prompt,
+        build_user_prompt,
+        normalize_api_key,
+        validate_cad_pipeline,
+        validate_generated_code,
+    )
+
+
+__all__ = [
+    "OpenAIResponsesClient",
+    "SYSTEM_PROMPT",
+    "build_repair_prompt",
+    "build_user_prompt",
+    "normalize_api_key",
+    "validate_cad_pipeline",
+    "validate_generated_code",
+]
