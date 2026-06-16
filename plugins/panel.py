@@ -50,6 +50,12 @@ class BLENDERLLM_PLUGIN_PT_panel(Panel):
             for line in state.last_summary.splitlines():
                 box.label(text=line[:120])
 
+        if state.cad_brief:
+            box = layout.box()
+            box.label(text="CAD Brief")
+            for line in state.cad_brief.splitlines()[:8]:
+                box.label(text=line[:120])
+
         if state.design_plan:
             box = layout.box()
             box.label(text="Design Plan")
@@ -60,6 +66,23 @@ class BLENDERLLM_PLUGIN_PT_panel(Panel):
             box = layout.box()
             box.label(text="Validators")
             for line in state.validation_report.splitlines()[:10]:
+                box.label(text=line[:120])
+
+        if state.scene_inspection:
+            box = layout.box()
+            box.label(text="Scene Inspection")
+            for line in state.scene_inspection.splitlines()[:10]:
+                box.label(text=line[:120])
+
+        if state.snapshot_path:
+            box = layout.box()
+            box.label(text="Snapshot")
+            box.label(text=state.snapshot_path[:120])
+
+        if state.runtime_repair_status:
+            box = layout.box()
+            box.label(text="Runtime Repair")
+            for line in state.runtime_repair_status.splitlines()[:6]:
                 box.label(text=line[:120])
 
         if state.generated_code:

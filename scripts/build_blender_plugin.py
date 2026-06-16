@@ -8,14 +8,14 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-PLUGIN_PACKAGE = PROJECT_ROOT / "plugins" / "blenderllm_plugin" / "blenderllm_plugin"
-CORE_PACKAGE = PROJECT_ROOT / "packages" / "blenderllm_plugin_core" / "blenderllm_plugin_core"
+PLUGIN_PACKAGE = PROJECT_ROOT / "plugins"
+CORE_PACKAGE = PROJECT_ROOT / "packages"
 DIST_DIR = PROJECT_ROOT / "dist"
 
 
 def add_tree(archive: zipfile.ZipFile, source_dir: Path, zip_prefix: Path) -> None:
     for path in sorted(source_dir.rglob("*")):
-        if not path.is_file() or "__pycache__" in path.parts:
+        if not path.is_file() or "__pycache__" in path.parts or path.name == ".DS_Store":
             continue
         archive.write(path, zip_prefix / path.relative_to(source_dir))
 

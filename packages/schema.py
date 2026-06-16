@@ -12,11 +12,12 @@ RESPONSE_TEXT_FORMAT = {
         "additionalProperties": False,
         "properties": {
             "summary": {"type": "string"},
+            "cad_brief": {"type": "array", "items": {"type": "string"}},
             "design_plan": {"type": "array", "items": {"type": "string"}},
             "code": {"type": "string"},
             "validation_targets": {"type": "array", "items": {"type": "string"}},
             "warnings": {"type": "array", "items": {"type": "string"}},
         },
-        "required": ["summary", "design_plan", "code", "validation_targets", "warnings"],
+        "required": ["summary", "cad_brief", "design_plan", "code", "validation_targets", "warnings"],
     },
 }

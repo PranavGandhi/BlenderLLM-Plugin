@@ -5,8 +5,10 @@ from __future__ import annotations
 try:
     from .core.blenderllm_plugin_core import (  # type: ignore[import-not-found]
         OpenAIResponsesClient,
+        build_cad_brief,
         SYSTEM_PROMPT,
         build_repair_prompt,
+        build_runtime_repair_prompt,
         build_user_prompt,
         normalize_api_key,
         validate_cad_pipeline,
@@ -15,8 +17,10 @@ try:
 except ModuleNotFoundError:
     from blenderllm_plugin_core import (
         OpenAIResponsesClient,
+        build_cad_brief,
         SYSTEM_PROMPT,
         build_repair_prompt,
+        build_runtime_repair_prompt,
         build_user_prompt,
         normalize_api_key,
         validate_cad_pipeline,
@@ -28,6 +32,8 @@ __all__ = [
     "OpenAIResponsesClient",
     "SYSTEM_PROMPT",
     "build_repair_prompt",
+    "build_runtime_repair_prompt",
+    "build_cad_brief",
     "build_user_prompt",
     "normalize_api_key",
     "validate_cad_pipeline",

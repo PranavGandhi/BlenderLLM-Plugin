@@ -16,8 +16,12 @@ class BlenderLLMPluginState(PropertyGroup):
         options={"TEXTEDIT_UPDATE"},
     )
     generated_code: StringProperty(name="Generated Code", default="", options={"TEXTEDIT_UPDATE"})
+    cad_brief: StringProperty(name="CAD Brief", default="", options={"TEXTEDIT_UPDATE"})
     design_plan: StringProperty(name="Design Plan", default="", options={"TEXTEDIT_UPDATE"})
     validation_report: StringProperty(name="Validation Report", default="", options={"TEXTEDIT_UPDATE"})
+    scene_inspection: StringProperty(name="Scene Inspection", default="", options={"TEXTEDIT_UPDATE"})
+    snapshot_path: StringProperty(name="Snapshot Path", default="", options={"TEXTEDIT_UPDATE"})
+    runtime_repair_status: StringProperty(name="Runtime Repair", default="", options={"TEXTEDIT_UPDATE"})
     pipeline_status: StringProperty(name="Pipeline Status", default="Idle", options={"TEXTEDIT_UPDATE"})
     last_summary: StringProperty(name="Summary", default="", options={"TEXTEDIT_UPDATE"})
     last_error: StringProperty(name="Error", default="", options={"TEXTEDIT_UPDATE"})

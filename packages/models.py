@@ -11,6 +11,7 @@ from typing import Any
 @dataclass
 class AssistantResult:
     summary: str
+    cad_brief: list[str]
     design_plan: list[str]
     code: str
     validation_targets: list[str]
@@ -32,6 +33,7 @@ def parse_assistant_result(text: str) -> AssistantResult:
         summary = text.strip() if not code else "The model returned Python code."
         return AssistantResult(
             summary=summary,
+            cad_brief=[],
             design_plan=[],
             code=code,
             validation_targets=[],
@@ -48,6 +50,11 @@ def parse_assistant_result(text: str) -> AssistantResult:
         design_plan = [design_plan]
     if not isinstance(design_plan, list):
         design_plan = []
+    cad_brief = data.get("cad_brief", [])
+    if isinstance(cad_brief, str):
+        cad_brief = [cad_brief]
+    if not isinstance(cad_brief, list):
+        cad_brief = []
     validation_targets = data.get("validation_targets", [])
     if isinstance(validation_targets, str):
         validation_targets = [validation_targets]
@@ -56,6 +63,7 @@ def parse_assistant_result(text: str) -> AssistantResult:
 
     return AssistantResult(
         summary=str(data.get("summary", "")).strip(),
+        cad_brief=[str(item).strip() for item in cad_brief if str(item).strip()],
         design_plan=[str(item).strip() for item in design_plan if str(item).strip()],
         code=str(data.get("code", "")).strip(),
         validation_targets=[str(item).strip() for item in validation_targets if str(item).strip()],
