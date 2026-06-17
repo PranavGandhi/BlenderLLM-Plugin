@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import os
 import threading
 import traceback
 from pathlib import Path
@@ -56,12 +55,10 @@ def local_settings_key() -> str:
 
 
 def configured_api_key(prefs) -> tuple[str, str]:
-    local_key = local_settings_key()
-    if local_key:
-        return local_key, "local_settings.py"
-    if getattr(prefs, "use_environment_key", False):
-        return os.environ.get("OPENAI_API_KEY", ""), "OPENAI_API_KEY environment variable"
-    return prefs.api_key, "BlenderLLM-Plugin preferences"
+    if getattr(prefs, "api_key_source", "ENV_FILE") == "PREFERENCE":
+        return getattr(prefs, "api_key", ""), "Blender preference key"
+
+    return local_settings_key(), "packaged .env key"
 
 
 def configured_client(prefs, timeout: int = 90) -> OpenAIResponsesClient:
@@ -69,8 +66,8 @@ def configured_client(prefs, timeout: int = 90) -> OpenAIResponsesClient:
     return OpenAIResponsesClient(
         api_key=api_key,
         timeout=timeout,
-        organization=getattr(prefs, "organization", ""),
-        project=getattr(prefs, "project", ""),
+        organization="",
+        project="",
     )
 
 
@@ -236,8 +233,8 @@ class BLENDERLLM_PLUGIN_OT_ask(Operator):
         cad_brief = build_cad_brief(prompt)
         state.cad_brief = "\n".join(f"- {item}" for item in cad_brief)
         repair_attempts = int(state.repair_attempts)
-        organization = getattr(prefs, "organization", "")
-        project = getattr(prefs, "project", "")
+        organization = ""
+        project = ""
 
         _ASK_JOB["result"] = None
         thread = threading.Thread(
@@ -375,8 +372,8 @@ class BLENDERLLM_PLUGIN_OT_apply_generated(Operator):
         scene_json = scene_context_json() if state.include_scene_context else None
         timeout = int(state.request_timeout)
         repair_attempts = int(state.repair_attempts)
-        organization = getattr(prefs, "organization", "")
-        project = getattr(prefs, "project", "")
+        organization = ""
+        project = ""
 
         _RUNTIME_REPAIR_JOB["result"] = None
         thread = threading.Thread(

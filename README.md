@@ -91,24 +91,46 @@ For faster iteration, start with `Scene Context` off, `Repairs = 0` or `1`, keep
 
 ## Install
 
-1. Build the add-on zip:
+1. Create a local `.env` from the demo file:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edit `.env` and set your real key:
+
+   ```text
+   OPENAI_API_KEY=sk-proj-your-real-key
+   ```
+
+   `.env` is ignored by git. The build script reads it and writes the key into the install zip as `blenderllm_plugin/local_settings.py`. This is the recommended option for long `sk-proj` keys because some Blender preference text fields may cut off around 127 characters.
+
+3. Build the add-on zip:
 
    ```bash
    python scripts/build_blender_plugin.py
    ```
 
-2. Open Blender.
-3. Go to `Edit > Preferences > Add-ons`.
-4. Click `Install...` and choose:
+4. Open Blender.
+5. Go to `Edit > Preferences > Add-ons`.
+6. Click `Install...` and choose:
 
    ```text
-   dist/blenderllm_plugin-0.9.0.zip
+   dist/blenderllm_plugin-1.0.0.zip
    ```
 
-5. Enable `BlenderLLM-Plugin`.
-6. Open the add-on preferences and paste your OpenAI API key, or launch Blender with `OPENAI_API_KEY` set.
-7. Go to `Edit > Preferences > System > Network` and enable `Allow Online Access`.
-8. In the 3D View, press `N` and open the `BlenderLLM` tab.
+7. Enable `BlenderLLM-Plugin`.
+8. In the add-on preferences, choose a `Key Source`:
+
+   ```text
+   Packaged .env key       Recommended for long keys. Uses the key bundled from .env at build time.
+   Blender preference key  Optional fallback. May cut off around 127 characters on some Blender versions.
+   ```
+
+   The preferences page shows the active key as a masked one-line preview, for example `Key: sk-proj-EZ24...1CNCtpJ6cA | Count: 164 chars`.
+
+9. Go to `Edit > Preferences > System > Network` and enable `Allow Online Access`.
+10. In the 3D View, press `N` and open the `BlenderLLM` tab.
 
 ## Recommended Workflow
 
@@ -135,6 +157,19 @@ dist/                              Built plugin zips
 
 The repo source is intentionally flat. The builder packages `plugins/` into the installable `blenderllm_plugin/` add-on folder and packages `packages/` into `blenderllm_plugin/core/blenderllm_plugin_core/` inside the zip.
 
+## API Key Setup
+
+BlenderLLM-Plugin supports two key sources in the add-on preferences:
+
+```text
+Packaged .env key       Uses OPENAI_API_KEY from the project .env file when the zip is built.
+Blender preference key  Uses the key typed into Blender's add-on preferences.
+```
+
+Use `Packaged .env key` when possible. It avoids the preference-field truncation issue seen on some Blender builds and keeps the full key inside the installed add-on's generated `local_settings.py`.
+
+Use `Blender preference key` only for quick tests or shorter keys. The preferences page shows a masked preview and character count so you can confirm whether Blender stored the full key.
+
 ## Troubleshooting
 
 ### OpenAI Requests Are Slow
@@ -153,6 +188,10 @@ Long prompts, scene context, and repair loops can turn one user action into mult
 ### OpenAI Requests Fail in Blender
 
 Enable `Edit > Preferences > System > Network > Allow Online Access`. Blender must be allowed to make network requests.
+
+If the add-on says no OpenAI key is configured, add `OPENAI_API_KEY` to the project `.env`, rebuild `dist/blenderllm_plugin-1.0.0.zip`, then reinstall the add-on.
+
+If you use `Blender preference key`, check the masked preview and character count in preferences. Long project keys are often around 160+ characters; if the count stops around 127, switch to `Packaged .env key`. If you know a reliable Blender preference workaround for long password fields, please share it in a GitHub issue or discussion so we can improve this path.
 
 ### Add-on Does Not Show Up
 

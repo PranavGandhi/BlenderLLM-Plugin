@@ -5,6 +5,7 @@ from __future__ import annotations
 try:
     from .core.blenderllm_plugin_core import (  # type: ignore[import-not-found]
         OpenAIResponsesClient,
+        api_key_fingerprint,
         build_cad_brief,
         SYSTEM_PROMPT,
         build_repair_prompt,
@@ -17,6 +18,7 @@ try:
 except ModuleNotFoundError:
     from blenderllm_plugin_core import (
         OpenAIResponsesClient,
+        api_key_fingerprint,
         build_cad_brief,
         SYSTEM_PROMPT,
         build_repair_prompt,
@@ -31,6 +33,7 @@ except ModuleNotFoundError:
 __all__ = [
     "OpenAIResponsesClient",
     "SYSTEM_PROMPT",
+    "api_key_fingerprint",
     "build_repair_prompt",
     "build_runtime_repair_prompt",
     "build_cad_brief",
