@@ -25,6 +25,7 @@ def install_bpy_stub() -> None:
     bpy.ops = MagicMock()
     bpy.props = types.SimpleNamespace(
         BoolProperty=lambda **_kwargs: None,
+        EnumProperty=lambda **_kwargs: None,
         IntProperty=lambda **_kwargs: None,
         PointerProperty=lambda **_kwargs: None,
         StringProperty=lambda **_kwargs: None,
