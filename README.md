@@ -127,8 +127,6 @@ For faster iteration, start with `Scene Context` off, `Repairs = 0` or `1`, keep
    Blender preference key  Optional fallback. May cut off around 127 characters on some Blender versions.
    ```
 
-   The preferences page shows the active key as a masked one-line preview, for example `Key: sk-proj-EZ24...1CNCtpJ6cA | Count: 164 chars`.
-
 9. Go to `Edit > Preferences > System > Network` and enable `Allow Online Access`.
 10. In the 3D View, press `N` and open the `BlenderLLM` tab.
 
